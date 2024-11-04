@@ -21,6 +21,18 @@ const PersonalInfo: React.FC<PersonalInfoProps> = ({ cvData, handleChange }) => 
           />
         </div>
       ))}
+
+      {/* Champ "À propos" */}
+      <div className="form-group">
+        <label>À propos</label>
+        <textarea
+          name="aPropos"
+          value={cvData.aPropos}
+          onChange={handleChange}
+          className="form-control form-control-sm"
+          rows={3} // Ajuste le nombre de lignes si nécessaire
+        />
+      </div>
     </>
   );
 };
