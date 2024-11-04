@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PersonalInfo from './components/PersonalInfo';
 import Experiences from './components/Experiences';
 import Formations from './components/Formations';
@@ -69,12 +69,34 @@ const App: React.FC = () => {
     setCvData((prevData) => ({ ...prevData, [name]: value }));
   };
 
+  // Charger les données depuis le localStorage lors du chargement de la page
+  useEffect(() => {
+    const savedData = localStorage.getItem('cvData');
+    if (savedData) {
+      setCvData(JSON.parse(savedData));
+    }
+  }, []);
+
+  // Fonction pour sauvegarder les données dans le localStorage
+  const saveToLocalStorage = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    event.preventDefault(); // Empêche le rechargement de la page
+    localStorage.setItem('cvData', JSON.stringify(cvData));
+    alert('Données sauvegardées dans le stockage local du navigateur.');
+  };
+
   return (
     <div className='container my-5'>
       <div className="row">
         {/* Section formulaire */}
         <div className='col-4'>
           <form style={{ position: 'sticky', top: '3rem' }}>
+
+            <div className="mb-4 border p-3 rounded">
+              <h2>Outils</h2>
+              <button onClick={saveToLocalStorage} className="btn btn-primary">
+                Sauvegarder l'état actuel
+              </button>
+            </div>
 
             <div className="mb-4 border p-3 rounded">
               <h2>Informations Personnelles</h2>
